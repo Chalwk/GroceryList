@@ -30,6 +30,7 @@ categories.
 - **Auto-save** - Automatically saves your data when changes are made
 - **Import/Export** - JSON import/export for data backup and sharing
 - **Persistent Storage** - Your data remains between application sessions
+- **Cross-platform Data Storage** - Data is stored in user's home directory for easy access and backup
 
 ## 🚀 Installation
 
@@ -70,6 +71,23 @@ This will create platform-specific installers:
 - **macOS**: `.dmg` or `.pkg`
 - **Linux**: `.deb` or `.rpm`
 
+## Data Storage
+
+The application stores your grocery data in a platform-specific user data directory:
+
+- **Windows**: `C:\Users\[Username]\GroceryList\grocery_data.json`
+- **macOS**: `/Users/[Username]/GroceryList/grocery_data.json`
+- **Linux**: `/home/[Username]/GroceryList/grocery_data.json`
+
+This ensures:
+- Data persists between application updates
+- Easy backup of your grocery lists
+- Proper file permissions for read/write operations
+- Separation from application installation files
+
+### Backing Up Your Data
+To back up your grocery list, simply copy the `grocery_data.json` file from the GroceryList directory in your user folder.
+
 ## How to Use
 
 ### Adding Items
@@ -101,7 +119,8 @@ This will create platform-specific installers:
 
 - **Import**: Load existing grocery data from JSON files
 - **Export**: Save your current data to JSON for backup
-- **Auto-save**: All changes are automatically saved
+- **Auto-save**: All changes are automatically saved to your user data directory
+- **Data Location**: Access your data file in `[User Home]/GroceryList/grocery_data.json`
 
 ## Project Structure
 
@@ -120,6 +139,19 @@ src/main/resources/
 ├── styles.css               # Application styling
 └── icon.ico                 # Application icon
 ```
+
+## Data File Location
+
+After installation, your grocery data is stored in:
+```
+[User Home Directory]/GroceryList/grocery_data.json
+```
+
+This ensures your data is:
+- **Persistent**: Survives application updates and reinstallations
+- **Accessible**: Easy to find and backup
+- **Secure**: Stored in your user directory with proper permissions
+- **Portable**: Can be moved between installations by copying the file
 
 ## License
 

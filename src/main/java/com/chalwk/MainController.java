@@ -59,6 +59,8 @@ public class MainController implements Initializable {
         setupBindings();
         setupFilters();
         updateTotal();
+
+        itemsTable.refresh();
     }
 
     private void setupTable() {
@@ -121,7 +123,7 @@ public class MainController implements Initializable {
     }
 
     private void setupBindings() {
-        // Bind categories to combo boxes
+        // Bind categories to combo boxes - using bindBidirectional for better synchronization
         categoryComboBox.setItems(groceryData.getCategories());
         categoryFilter.setItems(groceryData.getCategories());
 
@@ -129,6 +131,13 @@ public class MainController implements Initializable {
         groceryData.getItems().addListener((javafx.collections.ListChangeListener.Change<? extends GroceryItem> c) -> {
             updateTotal();
             saveData();
+        });
+
+        // Update combo boxes when categories change
+        groceryData.getCategories().addListener((javafx.collections.ListChangeListener.Change<? extends String> c) -> {
+            // Refresh the combo boxes when categories are modified
+            categoryComboBox.setItems(groceryData.getCategories());
+            categoryFilter.setItems(groceryData.getCategories());
         });
     }
 
@@ -169,7 +178,11 @@ public class MainController implements Initializable {
     }
 
     private void saveData() {
-        DataManager.saveData(groceryData);
+        if (javafx.application.Platform.isFxApplicationThread()) {
+            DataManager.saveData(groceryData);
+        } else {
+            javafx.application.Platform.runLater(() -> DataManager.saveData(groceryData));
+        }
     }
 
     @FXML
@@ -303,15 +316,32 @@ public class MainController implements Initializable {
 
         if (file != null) {
             try {
-                GroceryData importedData = objectMapper.readValue(file, GroceryData.class);
-                groceryData.getItems().setAll(importedData.getItems());
-                groceryData.getCategories().setAll(importedData.getCategories());
+
+                // Replace the entire groceryData object instead of just the lists
+                this.groceryData = objectMapper.readValue(file, GroceryData.class);
+
+                // Update the table items
+                filteredItems = new FilteredList<>(groceryData.getItems());
+                SortedList<GroceryItem> sortedItems = new SortedList<>(filteredItems);
+                sortedItems.comparatorProperty().bind(itemsTable.comparatorProperty());
+                itemsTable.setItems(sortedItems);
+
+                // Refresh UI components
+                categoryComboBox.setItems(groceryData.getCategories());
+                categoryFilter.setItems(groceryData.getCategories());
+
+                // Clear filters and refresh
+                showAllItems();
                 itemsTable.refresh();
                 updateTotal();
+
+                // Save immediately to the new data directory
                 saveData();
+
                 showAlert("Success", "Data imported successfully from: " + file.getAbsolutePath());
             } catch (Exception e) {
                 showAlert("Error", "Failed to import data: " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

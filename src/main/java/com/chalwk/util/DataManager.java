@@ -7,11 +7,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 
 public class DataManager {
-    private static final String DATA_FILE = "grocery_data.json";
+    private static final String DATA_FILE = getDataDirectory() + File.separator + "grocery_data.json";
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
+
+    private static String getDataDirectory() {
+        // Use user's home directory for data storage
+        String userHome = System.getProperty("user.home");
+        String appDataDir = userHome + File.separator + "GroceryList";
+
+        File dir = new File(appDataDir);
+        if (!dir.exists()) {
+            boolean created = dir.mkdirs();
+            if (created) {
+                System.out.println("Created data directory: " + appDataDir);
+            }
+        }
+
+        return appDataDir;
     }
 
     public static void saveData(GroceryData data) {
@@ -34,11 +50,11 @@ public class DataManager {
                 return data;
             } else {
                 System.out.println("No existing data file found, starting with empty data");
+                System.out.println("Data file location: " + DATA_FILE);
             }
         } catch (Exception e) {
             System.err.println("Failed to load data: " + e.getMessage());
             e.printStackTrace();
-            // Try to backup corrupted file
             backupCorruptedFile();
         }
         return new GroceryData();
