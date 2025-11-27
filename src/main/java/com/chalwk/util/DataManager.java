@@ -1,8 +1,9 @@
 package com.chalwk.util;
 
 import com.chalwk.model.GroceryData;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 
 public class DataManager {

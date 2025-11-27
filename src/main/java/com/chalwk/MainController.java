@@ -70,8 +70,11 @@ public class MainController implements Initializable {
         neededColumn.setCellValueFactory(new PropertyValueFactory<>("needed"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
 
+        // Make table sortable
+        itemsTable.setSortPolicy(param -> true);
+
         // Format price column
-        priceColumn.setCellFactory(column -> new TableCell<GroceryItem, Double>() {
+        priceColumn.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Double price, boolean empty) {
                 super.updateItem(price, empty);
@@ -84,7 +87,7 @@ public class MainController implements Initializable {
         });
 
         // Make needed column checkboxes
-        neededColumn.setCellFactory(column -> new TableCell<GroceryItem, Boolean>() {
+        neededColumn.setCellFactory(column -> new TableCell<>() {
             private final CheckBox checkBox = new CheckBox();
 
             {
@@ -126,14 +129,10 @@ public class MainController implements Initializable {
 
     private void setupFilters() {
         // Category filter
-        categoryFilter.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            applyFilters();
-        });
+        categoryFilter.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> applyFilters());
 
         // Search filter
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            applyFilters();
-        });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> applyFilters());
     }
 
     private void applyFilters() {
@@ -148,7 +147,7 @@ public class MainController implements Initializable {
             }
 
             // Search filter
-            if (searchText != null && !searchText.isEmpty()) {
+            if (!searchText.isEmpty()) {
                 return item.getName().toLowerCase().contains(searchText) ||
                         item.getDescription().toLowerCase().contains(searchText) ||
                         item.getLocation().toLowerCase().contains(searchText) ||

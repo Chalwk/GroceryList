@@ -61,4 +61,10 @@
         </columns>
     </TableView>
 
+    <!-- Copyright Notice -->
+    <HBox alignment="CENTER" style="-fx-padding: 5;">
+        <Label text="Copyright © 2025 Jericho Crosby (Chalwk)"
+               style="-fx-text-fill: #666; -fx-font-size: 11; -fx-font-style: italic;"/>
+    </HBox>
+
 </VBox>
