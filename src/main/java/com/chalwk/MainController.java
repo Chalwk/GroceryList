@@ -5,6 +5,7 @@ import com.chalwk.model.GroceryItem;
 import com.chalwk.util.DataManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -70,8 +71,15 @@ public class MainController implements Initializable {
         neededColumn.setCellValueFactory(new PropertyValueFactory<>("needed"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
 
-        // Make table sortable
-        itemsTable.setSortPolicy(param -> true);
+        // Create the filtered and sorted lists
+        filteredItems = new FilteredList<>(groceryData.getItems());
+        SortedList<GroceryItem> sortedItems = new SortedList<>(filteredItems);
+
+        // Bind the sorted list's comparator to the table's comparator
+        sortedItems.comparatorProperty().bind(itemsTable.comparatorProperty());
+
+        // Set the sorted list as the table items
+        itemsTable.setItems(sortedItems);
 
         // Format price column
         priceColumn.setCellFactory(column -> new TableCell<>() {
@@ -110,9 +118,6 @@ public class MainController implements Initializable {
                 }
             }
         });
-
-        filteredItems = new FilteredList<>(groceryData.getItems());
-        itemsTable.setItems(filteredItems);
     }
 
     private void setupBindings() {
