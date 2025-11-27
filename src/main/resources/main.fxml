@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="com.chalwk.MainController" spacing="10" style="-fx-padding: 10;">
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Home Manager - Grocery List" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="totalLabel" text="TOTAL PRICE: $0.00"
+               style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2E8B57;"/>
+    </HBox>
+
+    <Separator/>
+
+    <!-- Control Buttons -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button text="Show All Items" onAction="#showAllItems"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button text="Items Needed" onAction="#showNeededItems"
+                style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+        <Button text="Export" onAction="#exportData" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        <Button text="Import" onAction="#importData" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Add Category" onAction="#addCategory"
+                style="-fx-background-color: #9C27B0; -fx-text-fill: white;"/>
+        <Button text="Remove Category" onAction="#removeCategory"
+                style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+        <Button text="Add Item" onAction="#addItem" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button text="Edit Item" onAction="#editItem" style="-fx-background-color: #FFC107; -fx-text-fill: black;"/>
+        <Button text="Remove Item" onAction="#removeItem" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- Filter Controls -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Filter by Category:"/>
+        <ComboBox fx:id="categoryFilter" promptText="All Categories" prefWidth="150"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Default Category for New Items:"/>
+        <ComboBox fx:id="categoryComboBox" promptText="Select Category" prefWidth="150"/>
+    </HBox>
+
+    <!-- Add this after the Filter Controls section -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Search:"/>
+        <TextField fx:id="searchField" promptText="Search items..." prefWidth="300"/>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Items Table -->
+    <TableView fx:id="itemsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="nameColumn" text="Name" prefWidth="120"/>
+            <TableColumn fx:id="priceColumn" text="Price"/>
+            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="180"/>
+            <TableColumn fx:id="quantityColumn" text="Qty" prefWidth="60"/>
+            <TableColumn fx:id="locationColumn" text="Location" prefWidth="100"/>
+            <TableColumn fx:id="categoryColumn" text="Category" prefWidth="100"/>
+            <TableColumn fx:id="neededColumn" text="Needed"/>
+        </columns>
+    </TableView>
+
+</VBox>

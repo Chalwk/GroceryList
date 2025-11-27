@@ -1,0 +1,92 @@
+/* Base button style */
+.button {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-padding: 8 15 8 15;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+    -fx-transition: all 0.2s;
+}
+
+/* Button color variations */
+.button-green {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.button-orange {
+    -fx-background-color: #FF9800;
+    -fx-text-fill: white;
+}
+
+.button-blue {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.button-purple {
+    -fx-background-color: #9C27B0;
+    -fx-text-fill: white;
+}
+
+.button-red {
+    -fx-background-color: #F44336;
+    -fx-text-fill: white;
+}
+
+.button-yellow {
+    -fx-background-color: #FFC107;
+    -fx-text-fill: black;
+}
+
+/* Hover effects */
+.button:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+
+.button-green:hover {
+    -fx-background-color: #45a049;
+}
+
+.button-orange:hover {
+    -fx-background-color: #e68900;
+}
+
+.button-blue:hover {
+    -fx-background-color: #0b7dda;
+}
+
+.button-purple:hover {
+    -fx-background-color: #7b1fa2;
+}
+
+.button-red:hover {
+    -fx-background-color: #da190b;
+}
+
+.button-yellow:hover {
+    -fx-background-color: #e6ac00;
+}
+
+/* Pressed state */
+.button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Table styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #1976d2;
+}
