@@ -23,7 +23,7 @@ public class Main extends Application {
         Scene scene = new Scene(root, 1000, 700);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
-        primaryStage.setTitle("Home Manager - Grocery List");
+        primaryStage.setTitle("Grocery List");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

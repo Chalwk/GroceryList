@@ -44,7 +44,7 @@ jlink {
     jpackage {
         installerType = 'exe'
         installerOptions = [
-                '--description', 'Home Manager',
+                '--description', 'Grocery List',
                 '--vendor', 'Jericho Crosby',
                 '--win-menu',
                 '--win-shortcut',

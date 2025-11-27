@@ -1,4 +1,4 @@
-# Home Manager - Grocery List
+# Grocery List
 
 A JavaFX desktop application for managing your grocery shopping lists, tracking prices, and organizing items by
 categories.
